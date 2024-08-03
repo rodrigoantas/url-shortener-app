@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './styles';
 import api from '../../services';
 import { AxiosError } from 'axios';
+import { UrlType } from '../../types';
 
-interface UrlType {
+interface UrlResultType {
   url: string;
   alias: string;
   statistics: {
@@ -14,7 +15,8 @@ interface UrlType {
 const DashboardPage: React.FC = () => {
   const [url, setUrl] = useState('');
   const [customAlias, setCustomAlias] = useState('');
-  const [result, setResult] = useState<UrlType>();
+  const [result, setResult] = useState<UrlResultType>();
+  const [mostViewed, setMostViewed] = useState<UrlType[]>([]);
   const [error, setError] = useState('');
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -45,6 +47,16 @@ const DashboardPage: React.FC = () => {
     return url.startsWith('http://') || url.startsWith('https://');
   };
 
+
+  useEffect(() => {
+    async function getTopMostViewed() {
+      const result = await api.get("/api/top")
+      setMostViewed(result.data)
+    }
+    getTopMostViewed()
+
+  }, [])
+
   return (
     <S.Container>
       <S.Title>Encurtador de URL</S.Title>
@@ -71,6 +83,16 @@ const DashboardPage: React.FC = () => {
           <p>Tempo de operação: {result.statistics.time_taken}</p>
         </S.ResultContainer>
       )}
+
+
+      <S.Title>Top 10 URL's mais visitadas</S.Title>
+      <S.Container>
+        {mostViewed.map((url, index) => (
+          <S.ListItemContainer key={url._id}>
+            <p>{index + 1}. <a href={url.originalUrl}>{url.originalUrl}</a></p>
+          </S.ListItemContainer>
+        ))}
+      </S.Container>
     </S.Container>
   );
 };

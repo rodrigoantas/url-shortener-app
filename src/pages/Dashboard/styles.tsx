@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
+  text-align: center;
 `;
 
 export const Title = styled.h1`
@@ -86,4 +87,15 @@ export const ResultContainer = styled.div`
       font-weight: bold;
       word-wrap: break-word;
     }
+`
+
+export const ListItemContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  p {
+    margin: 0;
+    font-weight: bold;
+  }
+
 `
