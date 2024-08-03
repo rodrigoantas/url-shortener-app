@@ -33,6 +33,7 @@ export const Input = styled.input`
 
 
 export const Button = styled.button`
+  margin-bottom: 1.5rem;
   padding: 0.8rem 1.2rem;
   border: none;
   border-radius: 5px;
@@ -64,6 +65,25 @@ export const Text = styled.p`
   }
 
   &.success {
-    color: green;
-  }
+      color: green;
+    }
+
+`
+
+export const ResultContainer = styled.div`
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #e6f7ff;
+    color: #0056b3;
+    text-align: left;
+    width: 80%;
+    margin: 0 auto;
+
+    p {
+      margin: 0.5rem 0;
+      font-weight: bold;
+      word-wrap: break-word;
+    }
 `

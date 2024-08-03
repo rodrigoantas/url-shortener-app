@@ -3,15 +3,24 @@ import * as S from './styles';
 import api from '../../services';
 import { AxiosError } from 'axios';
 
+interface UrlType {
+  url: string;
+  alias: string;
+  statistics: {
+    time_taken: string;
+  }
+}
+
 const DashboardPage: React.FC = () => {
   const [url, setUrl] = useState('');
   const [customAlias, setCustomAlias] = useState('');
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<UrlType>();
   const [error, setError] = useState('');
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setError('');
+    setResult(undefined);
 
     if (!isValidUrl(url)) {
       setError('A URL deve começar com http:// ou https://');
@@ -56,11 +65,11 @@ const DashboardPage: React.FC = () => {
       </S.Form>
       {error && <S.Text className="error">{error}</S.Text>}
       {result && (
-        <div>
+        <S.ResultContainer>
           <p>URL encurtada: {result.url}</p>
           <p>Alias: {result.alias}</p>
           <p>Tempo de operação: {result.statistics.time_taken}</p>
-        </div>
+        </S.ResultContainer>
       )}
     </S.Container>
   );
