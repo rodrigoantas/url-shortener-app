@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './styles';
-import api from '../../services';
 import { AxiosError } from 'axios';
 import { UrlType } from '../../types';
+import createShortUrl from '../../hooks/create-short-url.hook';
+import getMostAccessedUrls from '../../hooks/get-most-accessed-url.hook';
 
 interface UrlResultType {
   url: string;
@@ -29,7 +30,7 @@ const DashboardPage: React.FC = () => {
       return;
     }
     try {
-      const response = await api.put(`/api/create?url=${url}&CUSTOM_ALIAS=${customAlias}`);
+      const response = await createShortUrl(url, customAlias);
       setResult(response.data);
     } catch (err) {
       const error = err as AxiosError<{ error: string }>;
@@ -50,7 +51,7 @@ const DashboardPage: React.FC = () => {
 
   useEffect(() => {
     async function getTopMostViewed() {
-      const result = await api.get("/api/top")
+      const result = await getMostAccessedUrls()
       setMostViewed(result.data)
     }
     getTopMostViewed()
