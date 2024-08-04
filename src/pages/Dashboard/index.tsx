@@ -4,6 +4,7 @@ import { AxiosError } from 'axios';
 import { UrlType } from '../../types';
 import createShortUrl from '../../hooks/create-short-url.hook';
 import getMostAccessedUrls from '../../hooks/get-most-accessed-url.hook';
+import UrlList from '../../components/UrlList';
 
 interface UrlResultType {
   url: string;
@@ -87,14 +88,7 @@ const DashboardPage: React.FC = () => {
 
 
       <S.Title>Top 10 URL's mais visitadas</S.Title>
-      <S.ListContainer>
-        {mostViewed.length > 1 ? mostViewed.map((url, index) => (
-          <S.ListItemContainer key={url._id}>
-            <p>{index + 1}.</p>
-            <a href={url.originalUrl}> {url.originalUrl} </a>
-          </S.ListItemContainer>
-        )) : <p>Nenhuma URL foi visitada até agora.</p>}
-      </S.ListContainer>
+      <UrlList mostViewed={mostViewed} />
     </S.Container>
   );
 };
