@@ -6,9 +6,14 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
-  color: #333;
-  margin-bottom: 1.5rem;
-  text-align: center;
+  font-size: 2rem; 
+  font-family: 'Georgia', serif; 
+  color: #333; 
+  margin-bottom: 20px; 
+  text-align: center; 
+  padding-bottom: 10px; 
+  max-width: 80%; 
+  margin: 0 auto 20px; 
 `
 
 export const Form = styled.form`
