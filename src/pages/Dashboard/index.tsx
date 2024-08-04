@@ -86,13 +86,14 @@ const DashboardPage: React.FC = () => {
 
 
       <S.Title>Top 10 URL's mais visitadas</S.Title>
-      <S.Container>
-        {mostViewed.map((url, index) => (
+      <S.ListContainer>
+        {mostViewed.length > 1 ? mostViewed.map((url, index) => (
           <S.ListItemContainer key={url._id}>
-            <p>{index + 1}. <a href={url.originalUrl}>{url.originalUrl}</a></p>
+            <p>{index + 1}.</p>
+            <a href={url.originalUrl}> {url.originalUrl} </a>
           </S.ListItemContainer>
-        ))}
-      </S.Container>
+        )) : <p>Nenhuma URL foi visitada até agora.</p>}
+      </S.ListContainer>
     </S.Container>
   );
 };
